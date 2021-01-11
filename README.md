@@ -39,6 +39,15 @@ The quickest way to add a test file is to go to the class that you want to test,
 - AndroidTestFolder = UITesting
 - TestFolder = UnitTesting
 
+You need to add the following library dependencies and the runner. Sometimes they are added for your, sometimes they are not.
+```
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import org.junit.runner.RunWith;
+
+@RunWith(AndroidJUnit4ClassRunner.class)
+class {}
+```
+
 
 ## Implementation:
 ### Testing Activities in isolation
