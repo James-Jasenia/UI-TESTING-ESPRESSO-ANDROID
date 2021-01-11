@@ -48,10 +48,7 @@ import org.junit.runner.RunWith;
 class {}
 ```
 
-## Implementation:
-Testing will always occur in alphabetical order.
-
-### Testing Activities in isolation
+## Testing View Visibility and Properties:
 
 #### Activity Scenario:
 ActivityScenario provides APIs to start and drive an Activity's lifecycle state for testing. It is highly recommended you call the .close() method after the test has finished. ActivityScenario doesn't always clean up device state and may leave the acitivity running after the test finishes.
@@ -82,5 +79,28 @@ You can set up an ActivityScenarioRule in the global scope of the class. This wi
     @Test
     public void test_isActivityInView() {
         onView(withId(R.id.secondary)).check(matches(isDisplayed()));
+    }
+```
+
+
+## Testing Navigation
+The method you need to be aware of is .perform(click()). As the method name implies, it will click on the view that it is invoked upon. Launching the SecondaryActivity to see if the pressBack() method return to the MainActivity will result in a failure as the MainAcitivity will not be in the navigation stack.
+
+```
+    //Navigation Testing
+    @Test
+    public void test_navSecondaryActivity() {
+        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+        onView(withId(R.id.button_next_activity)).perform(click());
+        onView(withId(R.id.secondary)).check(matches(isDisplayed()));
+        scenario.close();
+    }
+
+    @Test
+    public void test_backPress_toMainActivity() {
+        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+        onView(withId(R.id.button_next_activity)).perform(click());
+        pressBack();
+        onView(withId(R.id.main)).check(matches(isDisplayed()));
     }
 ```
