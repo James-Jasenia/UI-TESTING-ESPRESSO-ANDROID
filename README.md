@@ -54,10 +54,20 @@ class {}
 #### Activity Scenario:
 ActivityScenario provides APIs to start and drive an Activity's lifecycle state for testing. It is highly recommended you call the .close() method after the test has finished. ActivityScenario doesn't always clean up device state and may leave the acitivity running after the test finishes.
 
+Testing if UIElements are in view:
 ```
     @Test
     public void test_isActivityInView() {
         ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
         onView(withId(R.id.main)).check(matches(isDisplayed()));
+    }
+```
+
+Testing if TextView text is correct:
+```
+    @Test
+    public void test_IsTitleTextDisplayed() {
+        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+        onView(withId(R.id.activity_main_title)).check(matches(withText(R.string.text_mainactivity)));
     }
 ```
