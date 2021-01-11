@@ -10,11 +10,11 @@ Check for new version updates.
 
 ```
     // Espresso
-    def androidx_test_espresso = "3.3.0"
+    def androidx_test_espresso = "3.1.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
 
     // androidx.test
-    def androidx_test = "1.3.0"
+    def androidx_test = "1.1.0"
     androidTestImplementation "androidx.test:runner:$androidx_test"
     androidTestImplementation "androidx.test:core:$androidx_test"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_test"
@@ -48,7 +48,39 @@ import org.junit.runner.RunWith;
 class {}
 ```
 
-
 ## Implementation:
+Testing will always occur in alphabetical order.
+
 ### Testing Activities in isolation
 
+#### Activity Scenario:
+ActivityScenario provides APIs to start and drive an Activity's lifecycle state for testing. It is highly recommended you call the .close() method after the test has finished. ActivityScenario doesn't always clean up device state and may leave the acitivity running after the test finishes.
+
+Testing if UIElements are in view:
+```
+    @Test
+    public void test_isActivityInView() {
+        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+        onView(withId(R.id.main)).check(matches(isDisplayed()));
+    }
+```
+
+Testing if TextView text is correct:
+```
+    @Test
+    public void test_IsTitleTextDisplayed() {
+        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+        onView(withId(R.id.activity_main_title)).check(matches(withText(R.string.text_mainactivity)));
+    }
+```
+
+You can set up an ActivityScenarioRule in the global scope of the class. This will be initialised at the start of every test and destroyed at the end of every test. This means that you don't need to initiliase an ActivityScenario at the start of every test.
+```
+    @Rule
+    public ActivityScenarioRule<SecondaryActivity> activityScenario = new ActivityScenarioRule(SecondaryActivity.class);
+    
+    @Test
+    public void test_isActivityInView() {
+        onView(withId(R.id.secondary)).check(matches(isDisplayed()));
+    }
+```
