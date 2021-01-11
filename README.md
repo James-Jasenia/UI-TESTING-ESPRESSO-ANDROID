@@ -49,6 +49,8 @@ class {}
 ```
 
 ## Implementation:
+Testing will always occur in alphabetical order.
+
 ### Testing Activities in isolation
 
 #### Activity Scenario:
