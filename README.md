@@ -73,3 +73,14 @@ Testing if TextView text is correct:
         onView(withId(R.id.activity_main_title)).check(matches(withText(R.string.text_mainactivity)));
     }
 ```
+
+You can set up an ActivityScenarioRule in the global scope of the class. This will be initialised at the start of every test and destroyed at the end of every test. This means that you don't need to initiliase an ActivityScenario at the start of every test.
+```
+    @Rule
+    public ActivityScenarioRule<SecondaryActivity> activityScenario = new ActivityScenarioRule(SecondaryActivity.class);
+    
+    @Test
+    public void test_isActivityInView() {
+        onView(withId(R.id.secondary)).check(matches(isDisplayed()));
+    }
+```
