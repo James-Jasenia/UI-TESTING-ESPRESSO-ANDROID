@@ -4,6 +4,10 @@
 ## Purpose: 
 The purpose of this code base is to explore how UI Testing is done in Android using the Espresso library.
 
+##### Firebase Test Lab:
+You can run your tests on physical or virtual devices hosted by Google. This is done through Firebase Test Label. There is an associated cost.
+
+
 ## Setup
 ### Dependencies
 Check for new version updates. 
