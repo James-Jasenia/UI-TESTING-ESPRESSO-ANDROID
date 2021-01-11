@@ -10,11 +10,11 @@ Check for new version updates.
 
 ```
     // Espresso
-    def androidx_test_espresso = "3.3.0"
+    def androidx_test_espresso = "3.1.0"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
 
     // androidx.test
-    def androidx_test = "1.3.0"
+    def androidx_test = "1.1.0"
     androidTestImplementation "androidx.test:runner:$androidx_test"
     androidTestImplementation "androidx.test:core:$androidx_test"
     androidTestImplementation "androidx.test.ext:junit-ktx:$androidx_test"
@@ -48,7 +48,16 @@ import org.junit.runner.RunWith;
 class {}
 ```
 
-
 ## Implementation:
 ### Testing Activities in isolation
 
+#### Activity Scenario:
+ActivityScenario provides APIs to start and drive an Activity's lifecycle state for testing. It is highly recommended you call the .close() method after the test has finished. ActivityScenario doesn't always clean up device state and may leave the acitivity running after the test finishes.
+
+```
+    @Test
+    public void test_isActivityInView() {
+        ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class);
+        onView(withId(R.id.main)).check(matches(isDisplayed()));
+    }
+```
