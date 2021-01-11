@@ -104,3 +104,15 @@ The method you need to be aware of is .perform(click()). As the method name impl
         onView(withId(R.id.main)).check(matches(isDisplayed()));
     }
 ```
+
+## Test Suites
+Allow you to bundle up different kinds of test into groups. This makes it easier to run multiple test classes. In the example below, we have bundled up the MainActivityTest and the SecondaryActivityTest into on ActivityTestSuite class. When we want to run our 'Activity Tests', we can run the AcitivityTestSuite class.
+
+```
+@RunWith(Suite.class)
+@Suite.SuiteClasses({MainActivityTest.class, SecondaryActivityTest.class})
+public class ActivityTestSuite {
+}
+
+```
+
